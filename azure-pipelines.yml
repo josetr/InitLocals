@@ -1,0 +1,26 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'vs2017-win2016'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: dotnet run --project test/InitLocals.Tests --configuration $(buildConfiguration)
+  displayName: 'dotnet run'
+- task: CopyFiles@2
+  inputs:
+    contents: 'bin\**\*.nupkg'
+    flattenFolders: true
+    targetFolder: $(Build.ArtifactStagingDirectory)
+- task: PublishBuildArtifacts@1
+  inputs:
+    artifactName: drop
+- task: NuGetCommand@2
+  displayName: 'NuGet push'
+  inputs:
+    command: push
+    publishVstsFeed: 'InitLocals'
+    allowPackageConflicts: true

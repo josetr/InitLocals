@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\InitLocals\InitLocals.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <_InitLocalsTaskDirectory>$(SolutionDir)bin/InitLocals.Tasks/$(Configuration)/netstandard2.0</_InitLocalsTaskDirectory>
+  </PropertyGroup>
+  <Import Project="..\..\src\InitLocals\InitLocals.targets" />
+</Project>

@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+    <BaseIntermediateOutputPath>$(SolutionDir)obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <OutputPath>$(SolutionDir)bin\$(MSBuildProjectName)\$(Configuration)\</OutputPath>
+    <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+</Project>

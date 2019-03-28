@@ -1,0 +1,21 @@
+﻿<Project>
+  <PropertyGroup>
+    <_InitLocalsToolsDirectory>$(MSBuildThisFileDirectory)../tools/</_InitLocalsToolsDirectory>
+    <_InitLocalsTargetFramework Condition="'$(MSBuildRuntimeType)' == 'Core'">netstandard2.0</_InitLocalsTargetFramework>
+    <_InitLocalsTargetFramework Condition="'$(_InitLocalsTargetFramework)' == ''">net46</_InitLocalsTargetFramework>
+    <_InitLocalsTaskDirectory Condition="'$(_InitLocalsTaskDirectory)' == ''">$(_InitLocalsToolsDirectory)$(_InitLocalsTargetFramework)/</_InitLocalsTaskDirectory>
+    <InitLocalsTaskPath Condition="'$(InitLocalsTaskPath)' == ''">$(_InitLocalsTaskDirectory)/InitLocals.Tasks.dll</InitLocalsTaskPath>
+  </PropertyGroup>
+
+  <UsingTask TaskName="InitLocals" AssemblyFile="$(InitLocalsTaskPath)" />
+  <Target Name="InitLocalsTarget" AfterTargets="AfterCompile" DependsOnTargets="$(InitLocalsDependsOn)">
+    <InitLocals
+      IntermediateAssembly="@(IntermediateAssembly)"
+      SignAssembly="$(SignAssembly)"
+      DebugType="$(DebugType)"
+      DebugSymbolsIntermediatePath="@(_DebugSymbolsIntermediatePath)"
+      KeyOriginatorFile="$(KeyOriginatorFile)"
+      AssemblyOriginatorKeyFile="$(AssemblyOriginatorKeyFile)"
+    />
+  </Target>
+</Project>

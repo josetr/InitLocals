@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>InitLocals</PackageId>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(SolutionDir)key.snk</AssemblyOriginatorKeyFile>
+    <Authors>Jose Torres</Authors>
+    <Copyright>Copyright 2019.</Copyright>
+    <Description>Controls whether the local variables in methods are zero-initialized.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageTags>InitLocals, Cecil, ILWeaving</PackageTags>
+    <PackageProjectUrl>https://github.com/josetr/InitLocals</PackageProjectUrl>
+  </PropertyGroup>
+
+  <Target Name="CopyFilesToNugetPackage" AfterTargets="Build">
+    <ItemGroup>
+      <Content Include="InitLocals.targets" PackagePath="build" />
+      <Content Include="$(SolutionDir)/bin/InitLocals.Tasks/$(Configuration)/**/*.dll" PackagePath="tools" />
+    </ItemGroup>
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="2.1.65" PrivateAssets="all" />
+    <ProjectReference Include="..\InitLocals.Tasks\InitLocals.Tasks.csproj" ReferenceOutputAssembly="false">
+      <SetTargetFramework>TargetFramework=netstandard2.0</SetTargetFramework>
+    </ProjectReference>
+    <ProjectReference Include="..\InitLocals.Tasks\InitLocals.Tasks.csproj" ReferenceOutputAssembly="false">
+      <SetTargetFramework>TargetFramework=net46</SetTargetFramework>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
