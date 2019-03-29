@@ -5,5 +5,7 @@
     <OutputPath>$(SolutionDir)bin\$(MSBuildProjectName)\$(Configuration)\</OutputPath>
     <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
     <LangVersion>latest</LangVersion>
+    <FodyVersion>4.2.1</FodyVersion>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 </Project>

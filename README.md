@@ -1,13 +1,13 @@
 # InitLocals
 
-[![#](https://img.shields.io/nuget/v/InitLocals.svg?style=flat)](http://www.nuget.org/packages/InitLocals/)
+[![#](https://img.shields.io/nuget/v/InitLocals.Fody.svg?style=flat)](http://www.nuget.org/packages/InitLocals.Fody/)
 [![Build Status](https://josetr.visualstudio.com/InitLocals/_apis/build/status/InitLocals?branchName=master)](https://josetr.visualstudio.com/InitLocals/_build/latest?definitionId=12&branchName=master)
 
 Controls whether the local variables in methods are zero-initialized.
 
 ## Usage
 
-* Install package `InitLocals`.
+* Install package `InitLocals.Fody`.
 * Mark your method/class/assembly with the `InitLocals` attribute.
 
 ## Sample
@@ -31,22 +31,22 @@ public class Program
     static void True()
     {
         UseStack();
-        Span<byte> array = stackalloc byte[Size];
-        Debug.Assert(array.ToArray().All(n => n == 0));
+        Span<byte> span = stackalloc byte[Size];
+        Debug.Assert(span.ToArray().All(n => n == 0));
     }
 
     [InitLocals(false)]
     static void False()
     {
         UseStack();
-        Span<byte> array = stackalloc byte[Size];
-        Debug.Assert(array.ToArray().Any(n => n != 0));
+        Span<byte> span = stackalloc byte[Size];
+        Debug.Assert(span.ToArray().Any(n => n != 0));
     }
 
     public static void UseStack()
     {
-        Span<byte> array = stackalloc byte[Size];
-        array.Fill(125);
+        Span<byte> span = stackalloc byte[Size];
+        span.Fill(125);
     }
 }
 ```

@@ -4,34 +4,43 @@ namespace InitLocals.Tests
 {
     using System;
     using System.Linq;
+    using Xunit;
     using static Util;
 
     public class Program
     {
-        static void Main()
+        public static void Main()
         {
             True();
             False();
             FalseInheritedByClass.Check();
-            Console.WriteLine("Success!");
-        }
-
-        [InitLocals(false)]
-        static void False()
-        {
-            FillWithGarbage();
-            Span<byte> array = stackalloc byte[Size];
-            if (!array.ToArray().Any(n => n != 0))
-                throw new Exception("InitLocals(false) failed. Memory does not contain garbage.");
         }
 
         [InitLocals(true)]
         static void True()
         {
             FillWithGarbage();
-            Span<byte> array = stackalloc byte[Size];
-            if (!array.ToArray().All(n => n == 0))
-                throw new Exception("InitLocals(true) failed. Memory is not zero initialized.");
+            Span<byte> span = stackalloc byte[Size];
+            Assert.True(span.ToArray().All(n => n == 0));
+        }
+
+        [InitLocals(false)]
+        static void False()
+        {
+            FillWithGarbage();
+            Span<byte> span = stackalloc byte[Size];
+            Assert.Contains(Garbage, span.ToArray());
+        }
+    }
+
+    [InitLocals(true)]
+    public class TrueInheritedByClass
+    {
+        public static void Check()
+        {
+            FillWithGarbage();
+            Span<byte> span = stackalloc byte[Size];
+            Assert.True(span.ToArray().All(n => n == 0));
         }
     }
 
@@ -41,21 +50,20 @@ namespace InitLocals.Tests
         public static void Check()
         {
             FillWithGarbage();
-            Span<byte> array = stackalloc byte[Size];
-            if (!array.ToArray().Any(n => n != 0))
-                throw new Exception("InitLocals(false) failed. Memory does not contain garbage.");
+            Span<byte> span = stackalloc byte[Size];
+            Assert.Contains(Garbage, span.ToArray());
         }
     }
 
     public static class Util
     {
         public const int Size = 2048;
+        public const byte Garbage = 125;
 
         public static void FillWithGarbage()
         {
-            Span<byte> array = stackalloc byte[Size];
-            array.Fill(3);
+            Span<byte> span = stackalloc byte[Size];
+            span.Fill(Garbage);
         }
     }
 }
-
