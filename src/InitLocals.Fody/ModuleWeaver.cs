@@ -40,6 +40,4 @@ public class ModuleWeaver : BaseModuleWeaver
     {
         return Enumerable.Empty<string>();
     }
-
-    public override bool ShouldCleanReference => true;
 }
