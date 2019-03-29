@@ -7,6 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="System.Memory" Version="4.5.2" />
-    <PackageReference Include="InitLocals.Fody" Version="0.1.2-beta" />
+    <PackageReference Include="InitLocals.Fody" Version="0.1.1-beta" />
   </ItemGroup>
 </Project>
