@@ -10,11 +10,11 @@ public class ModuleWeaver : BaseModuleWeaver
 {
     public override void Execute()
     {
-        var assemblyInitLocals = GetInitLocals(ModuleDefinition.Assembly.CustomAttributes);
+        var moduleInitLocals = GetInitLocals(ModuleDefinition.CustomAttributes);
 
         foreach (var type in ModuleDefinition.Types)
         {
-            var typeInitLocals = GetInitLocals(type.CustomAttributes) ?? assemblyInitLocals;
+            var typeInitLocals = GetInitLocals(type.CustomAttributes) ?? moduleInitLocals;
 
             foreach (var method in type.Methods.Where(m => m.HasBody))
             {

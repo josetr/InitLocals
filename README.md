@@ -8,7 +8,7 @@ Controls whether the local variables in methods are zero-initialized.
 ## Usage
 
 * Install package `InitLocals.Fody`.
-* Mark your method/class/assembly with the `InitLocals` attribute.
+* Mark your method/class/module with the `InitLocals` attribute.
 
 ## Sample
 

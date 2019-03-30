@@ -3,18 +3,22 @@
 using System;
 
 /// <summary>
-/// Attribute used to control whether the local variables in a method are zero-initialized.
-/// Applying this attribute to a struct/class/assembly is the same as applying it to every method contained in that type or assembly.
-/// Seee <see href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.emit.dynamicmethod.initlocals"/> for more information.
+/// Attribute used to control whether the local variables in a method should be zero-initialized.
+/// Applying this attribute to a struct/class/module is the same as applying it to every method within that type/module.
 /// </summary>
-[AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Method | AttributeTargets.Property)]
-public class InitLocalsAttribute : Attribute
+/// <remarks>
+/// See <see href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.emit.dynamicmethod.initlocals"/> for more information.
+/// </remarks>
+[AttributeUsage(AttributeTargets.Module | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Event, Inherited = false)]
+public sealed class InitLocalsAttribute : Attribute
 {
     /// <summary>
-    /// Attribute used to control whether the local variables in a method are zero-initialized.
-    /// Applying this attribute to a struct/class/assembly is the same as applying it to every method contained in that type or assembly.
-    /// Seee <see href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.emit.dynamicmethod.initlocals"/> for more information.
+    /// Initializes a new instance of the <see cref="InitLocalsAttribute"/> attribute.
     /// </summary>
+    /// <param name="initLocals">Whether the local variables in a method should be zero-initialized.</param>
+    /// <remarks>
+    /// See <see href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.emit.dynamicmethod.initlocals"/> for more information.
+    /// </remarks>
     public InitLocalsAttribute(bool initLocals)
     {
     }
