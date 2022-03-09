@@ -5,6 +5,12 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: sdk
+    version: 2.x
+    installationPath: $(Agent.ToolsDirectory)/dotnet
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build'
 - script: dotnet test test/InitLocals.TestRunner --configuration $(buildConfiguration) --no-build --no-restore
